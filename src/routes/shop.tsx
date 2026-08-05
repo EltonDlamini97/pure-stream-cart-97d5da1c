@@ -6,14 +6,14 @@ import { ProductCard } from "@/components/ProductCard";
 import { PageHeader, ProductSkeleton } from "@/components/Section";
 import { Button } from "@/components/ui/button";
 
-type ShopSearch = { q?: string; category?: string; size?: string; sort?: string };
+type ShopSearch = { q?: string | undefined; category?: string | undefined; size?: string | undefined; sort?: string | undefined };
 
 export const Route = createFileRoute("/shop")({
   validateSearch: (search: Record<string, unknown>): ShopSearch => ({
-    q: typeof search.q === "string" ? search.q : undefined,
-    category: typeof search.category === "string" ? search.category : undefined,
-    size: typeof search.size === "string" ? search.size : undefined,
-    sort: typeof search.sort === "string" ? search.sort : undefined,
+    q: typeof search["q"] === "string" ? search["q"] : undefined,
+    category: typeof search["category"] === "string" ? search["category"] : undefined,
+    size: typeof search["size"] === "string" ? search["size"] : undefined,
+    sort: typeof search["sort"] === "string" ? search["sort"] : undefined,
   }),
   head: () => ({
     meta: [
@@ -45,7 +45,7 @@ function Shop() {
 
   useEffect(() => setQuery(search.q ?? ""), [search.q]);
 
-  const update = (patch: ShopSearch) => navigate({ search: (prev) => ({ ...prev, ...patch }) });
+  const update = (patch: ShopSearch) => navigate({ search: (prev: ShopSearch) => ({ ...prev, ...patch }) });
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
