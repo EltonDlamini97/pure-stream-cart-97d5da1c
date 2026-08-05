@@ -76,7 +76,7 @@ function ProductDetail() {
               />
             </div>
             <div className="mt-4 grid grid-cols-4 gap-3">
-              {product.gallery.map((g, i) => (
+              {product.gallery.map((g: string, i: number) => (
                 <button
                   key={i}
                   onClick={() => setActive(i)}
@@ -112,7 +112,7 @@ function ProductDetail() {
             </dl>
 
             <ul className="mt-6 space-y-2">
-              {product.features.map((f) => (
+              {product.features.map((f: string) => (
                 <li key={f} className="flex items-center gap-2 text-sm text-muted-foreground">
                   <Check className="h-4 w-4 shrink-0 text-primary" /> {f}
                 </li>
