@@ -1,0 +1,28 @@
+import { useEffect, useState } from "react";
+import { motion } from "motion/react";
+import { ArrowUp } from "lucide-react";
+
+export function BackToTop() {
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setShow(window.scrollY > 500);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  if (!show) return null;
+
+  return (
+    <motion.button
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      whileHover={{ scale: 1.1 }}
+      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      aria-label="Back to top"
+      className="fixed bottom-6 right-6 z-50 grid h-12 w-12 place-items-center rounded-full gradient-hero text-primary-foreground shadow-float"
+    >
+      <ArrowUp className="h-5 w-5" />
+    </motion.button>
+  );
+}
